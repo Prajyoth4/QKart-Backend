@@ -17,10 +17,12 @@ const ApiError = require("../utils/ApiError");
 const loginUserWithEmailAndPassword = async (email, password) => {
   let user = await userService.getUserByEmail(email)
   if (!user){
+    console.log("User not found")
     throw new ApiError(httpStatus.UNAUTHORIZED, "Incorrect email or password")
   }
   let result = await user.isPasswordMatch(password)
   if (!result){
+    console.log("Password not matching")
     throw new ApiError(httpStatus.UNAUTHORIZED, "Incorrect email or password")
   }
   return user
